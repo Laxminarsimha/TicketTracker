@@ -250,8 +250,10 @@
             var name = name;
             $.ajax({
                 type: "get",
-                url: "@Url.Action("defectStatusData", "defects")",
-                dataType: "json",
+                url: "@Url.Action("GetSelectedPriorityData")",
+                data:{
+                    priority: name
+                },
                 success: function (data) {
                     $("#defect-data .modal-title").text("Defects by Priority");
                     $("#defect-data .modal-body").html(data);

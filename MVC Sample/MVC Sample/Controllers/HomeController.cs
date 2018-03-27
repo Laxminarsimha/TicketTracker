@@ -31,27 +31,43 @@ namespace MVC_Sample.Controllers
         }
         public ActionResult GetPriorityGroupedData()
         {
-            if (StaticData.TicketData == null)
-                StaticData.Loaddata(Server.MapPath("~/Source/Tickets.csv"));
-            var resultdata = StaticData.TicketData.GroupBy(t => t.Priority).Select(k => new { name = k.Key, y = k.Count() });
+            List<TicketData> ticketdata = LoadData(Server.MapPath("~/Source/Tickets.csv"));
+            var resultdata = ticketdata.GroupBy(t => t.Priority).Select(k => new { name = k.Key, y = k.Count() });
             return this.Json(resultdata, JsonRequestBehavior.AllowGet);
 
         }
 
         public ActionResult GetStatusGroupedData()
         {
-            if (StaticData.TicketData == null)
-                StaticData.Loaddata(Server.MapPath("~/Source/Tickets.csv"));
-            var resultdata = StaticData.TicketData.GroupBy(t => t.EscalationStatus).Select(k => new { name = k.Key, y = k.Count() });
+            List<TicketData> ticketdata = LoadData(Server.MapPath("~/Source/Tickets.csv"));
+            var resultdata = ticketdata.GroupBy(t => t.EscalationStatus).Select(k => new { name = k.Key, y = k.Count() });
             return this.Json(resultdata, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetSelectedPriorityData(string priority)
         {
-            if (StaticData.TicketData == null)
-                StaticData.Loaddata(Server.MapPath("~/Source/Tickets.csv"));
-            ViewBag.FilteredData = StaticData.TicketData.Where(t => t.Priority == priority).ToList();
-            return PartialView("~~/Views/Home/_FilteredView.cshtml")
+            List<TicketData> ticketdata = LoadData(Server.MapPath("~/Source/Tickets.csv"));
+            ViewBag.FilteredData = ticketdata.Where(t => t.Priority == priority).ToList();
+            return PartialView("~/Views/Home/_FilteredView.cshtml");
+        }
+        public List<TicketData> LoadData(string Filepath)
+        {
+            List<TicketData> ticketdata = new List<TicketData>();
+            if (System.IO.File.Exists(Filepath))
+            {
+                var data = System.IO.File.ReadAllLines(Filepath);
+                for (int i = 1; i < data.Length; i++)
+                {
+                    var ticket = data[i];
+                    TicketData currentData = new TicketData();
+                    currentData.EscalationId = ticket.Split(',')[0];
+                    currentData.Summary = ticket.Split(',')[1];
+                    currentData.Priority = ticket.Split(',')[2];
+                    currentData.EscalationStatus = ticket.Split(',')[3];
+                    ticketdata.Add(currentData);
+                }
+            }
+            return ticketdata;
         }
     }
 }
