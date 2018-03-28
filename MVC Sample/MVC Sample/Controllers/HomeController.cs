@@ -69,5 +69,19 @@ namespace MVC_Sample.Controllers
             }
             return ticketdata;
         }
+
+        public ActionResult Search()
+        {
+            ViewBag.Message = "";
+
+            return View();
+        }
+
+        public ActionResult SearchDefects(string search)
+        {
+            List<TicketData> ticketdata = LoadData(Server.MapPath("~/Source/Tickets.csv"));
+            ViewBag.FilteredData = ticketdata.Where(t => t.Summary.ToLower().Contains(search.ToLower())).ToList();
+            return PartialView("~/Views/Home/_FilteredView.cshtml");
+        }
     }
 }

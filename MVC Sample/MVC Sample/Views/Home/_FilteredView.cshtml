@@ -1,35 +1,31 @@
 ﻿@using MVC_Sample.Models
-<div >
-    <div class="panel panel-default">
-        <div class="panel-heading center">Tickets Report</div>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>S.No.</th>
-                    <th>Escalation ID</th>
-                    <th>Summary</th>
-                    <th>Priority</th>
-                    <th>Escalation Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    List<TicketData> FilteredData = ViewBag.FilteredData;
-                    int qcsno = 1;
-                }
-                @foreach (TicketData ticket in FilteredData)
-                {
-                    <tr>
+<div class="panel-heading center">Tickets Report</div>
+<table class="table table-bordered table-striped" id="ticket-report-table">
+    <thead>
+        <tr>
+            <th>S.No.</th>
+            <th>Escalation ID</th>
+            <th>Summary</th>
+            <th>Priority</th>
+            <th>Escalation Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            List<TicketData> FilteredData = ViewBag.FilteredData;
+            int qcsno = 1;
+        }
+        @foreach (TicketData ticket in FilteredData)
+        {
+            <tr>
 
-                        <td>@(qcsno++)</td>
-                        <td>@ticket.EscalationId</td>
-                        <td>@ticket.Summary</td>
-                        <td>@ticket.Priority</td>
-                        <td>@ticket.EscalationStatus</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+                <td>@(qcsno++)</td>
+                <td>@ticket.EscalationId</td>
+                <td>@ticket.Summary</td>
+                <td>@ticket.Priority</td>
+                <td>@ticket.EscalationStatus</td>
+            </tr>
+        }
+    </tbody>
+</table>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Defect Tracker</title>
 
     <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/assets/css/material-dashboard.css" rel="stylesheet" />
@@ -11,7 +11,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
-
+    @RenderSection("styles", required: false)
 </head>
 <body>
     <div class="wrapper">
@@ -24,13 +24,13 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="active">
-                        <a href="dashboard.html">
+                        <a href="@Url.Action("index","Home")">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li>
-                        <a href="./user.html">
+                        <a href="@Url.Action("search","Home")">
                             <i class="material-icons">search</i>
                             <p>Search</p>
                         </a>
