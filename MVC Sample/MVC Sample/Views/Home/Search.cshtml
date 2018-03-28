@@ -2,6 +2,14 @@
 @{
     ViewBag.Title = "Search";
 }
+@section styles{
+    <link href="~/Content/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+    <style>
+        .modal-custom-lg {
+            width: 80% !important;
+        }
+    </style>
+}
 
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -21,11 +29,12 @@
         </div>
     </div>
 </div>
-<div class="row" >
+<div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12" id="search-display">
     </div>
 </div>
 @section scripts{
+    <script src="~/Content/datatables/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
             $("#search").keypress(function () {
@@ -36,6 +45,7 @@
                         data: { "search": search },
                         success: function (result) {
                             $("#search-display").html(result);
+                            $("#ticket-report-table").DataTable();
                         }
                     });
                 }
